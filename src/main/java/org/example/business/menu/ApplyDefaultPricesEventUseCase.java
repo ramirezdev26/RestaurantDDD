@@ -3,7 +3,6 @@ package org.example.business.menu;
 import org.example.business.commons.EventsRepository;
 import org.example.business.commons.UseCaseForEvent;
 import org.example.domain.menu.Menu;
-import org.example.domain.menu.commands.RemovePromoCommand;
 import org.example.domain.menu.events.DefaultPricesApplied;
 import org.example.domain.menu.values.MenuId;
 import org.example.generic.DomainEvent;

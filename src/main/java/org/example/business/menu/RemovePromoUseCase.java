@@ -24,11 +24,12 @@ public class RemovePromoUseCase implements UseCaseForCommand<RemovePromoCommand>
 
     @Override
     public List<DomainEvent> apply(RemovePromoCommand command) {
+
         List<DomainEvent> menuEvents = eventsRepository.findByAggregatedRootId(command.getMenuId());
         Menu menu = Menu.from(MenuId.of(command.getMenuId()), menuEvents);
-        DefaultPricesApplied defaultPricesApplied = new DefaultPricesApplied(command.getMenuId(), command.getPromoId());
-        applyDefaultPricesEventUseCase.apply(defaultPricesApplied);
+
         menu.removePromo(command.getPromoId());
+
         return menu.getUncommittedChanges().stream().map(event -> eventsRepository.saveEvent(event)).toList();
     }
 }

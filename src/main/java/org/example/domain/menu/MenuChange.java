@@ -54,7 +54,7 @@ public class MenuChange extends EventChange {
                         item.setPrice(new Price(item.getPrice().value() * 100 / (100 - quantityOff)));
                     }
                 }
-            } throw new IllegalArgumentException("The id provided doesn't match with the current promoId");
+            } else throw new IllegalArgumentException("The id provided doesn't match with the current promoId");
         });
 
     }
