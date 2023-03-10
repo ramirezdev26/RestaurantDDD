@@ -77,4 +77,5 @@ Next image shows domain model, how aggregates, entities and value objects intera
 	- **Calculate Total Event Use Case**: When the Add and remove Item to the list on Order Use Cases this use case will calculate the total of the order based on the prices of each Order item.
 
 ## Coverage
+![image](https://user-images.githubusercontent.com/98781195/224422059-74af0d13-b3ff-4c6a-91ef-713c4729b9eb.png)
 
