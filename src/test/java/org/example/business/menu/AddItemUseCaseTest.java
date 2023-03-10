@@ -8,6 +8,7 @@ import org.example.domain.client.events.ReviewAdded;
 import org.example.domain.menu.commands.AddItemCommand;
 import org.example.domain.menu.events.ItemAdded;
 import org.example.domain.menu.events.MenuCreated;
+import org.example.domain.order.events.ItemAddedToOrder;
 import org.example.generic.DomainEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,9 @@ class AddItemUseCaseTest {
     @BeforeEach
     void setup(){
         addItemUseCase = new AddItemUseCase(eventsRepository);
+
     }
+
 
     @Test
     void successfulScenario() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -64,5 +67,34 @@ class AddItemUseCaseTest {
         Assertions.assertEquals("menuId",domainEventList2.get(0).aggregateRootId());
         Assertions.assertEquals(20000, domainEventList2.get(0).getClass().getMethod("getPrice").invoke(domainEventList2.get(0)));
     }
+
+    @Test
+    void idAlreadyExistOnTheList() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        // Create Menu event
+        MenuCreated menuCreated = new MenuCreated("10-05-2022");
+        menuCreated.setAggregateRootId("menuId");
+
+        //Add Item
+        ItemAdded item2Added = new ItemAdded("item2Id", "bear", "a bear with candy", "BBC", 8000);
+        item2Added.setAggregateRootId("menuId");
+
+        // Adding the Item
+        AddItemCommand addItemCommand = new AddItemCommand( "item2Id", "burger", "a burger with pineapple and bred", "Hawaiian Burger", 20000, "menuId");
+        Mockito.when(eventsRepository.findByAggregatedRootId(addItemCommand.getMenuId()))
+                .thenAnswer(invocationOnMock ->  {
+                    List<DomainEvent> eventList = new ArrayList<DomainEvent>();
+                    eventList.add(menuCreated);
+                    eventList.add(item2Added);
+                    return eventList;
+                });
+
+
+        IllegalArgumentException exception = assertThrows( IllegalArgumentException.class, () -> addItemUseCase.apply(addItemCommand));
+
+        Assertions.assertEquals("Id already exists on the Item List",exception.getMessage());
+
+    }
+
 
 }

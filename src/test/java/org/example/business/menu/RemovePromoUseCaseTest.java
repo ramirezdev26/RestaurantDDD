@@ -68,5 +68,36 @@ class RemovePromoUseCaseTest {
 
     }
 
+    @Test
+    void promoIdDoesNotMatch() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        // Create Menu event
+        MenuCreated menuCreated = new MenuCreated("10-05-2022");
+        menuCreated.setAggregateRootId("menuId");
+
+        // Adding Promo to Menu
+        Set<String> itemIdList = new HashSet<>();
+        itemIdList.add("itemId");
+        PromoAdded promoAdded = new PromoAdded("promoId", 10, itemIdList);
+        promoAdded.setAggregateRootId("menuId");
+
+        // Removing Promo from Menu
+        RemovePromoCommand removePromoCommand = new RemovePromoCommand( "Id","menuId");
+        Mockito.when(eventsRepository.findByAggregatedRootId(removePromoCommand.getMenuId()))
+                .thenAnswer(invocationOnMock ->  {
+                    List<DomainEvent> eventList = new ArrayList<DomainEvent>();
+                    eventList.add(menuCreated);
+                    eventList.add(promoAdded);
+                    return eventList;
+                });
+
+
+        IllegalArgumentException exception = assertThrows( IllegalArgumentException.class, () ->removePromoUseCase.apply(removePromoCommand));
+
+        Assertions.assertEquals("The id provided doesn't match with the current promoId",exception.getMessage());
+
+
+    }
+
 }
 

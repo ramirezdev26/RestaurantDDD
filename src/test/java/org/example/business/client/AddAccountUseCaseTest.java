@@ -42,7 +42,7 @@ class AddAccountUseCaseTest {
 
 
         // Adding the Account
-        AddAccountCommand addAccountCommand = new AddAccountCommand( "reviewId", "email", "password", "username", "clientId");
+        AddAccountCommand addAccountCommand = new AddAccountCommand( "reviewId", "email@account.com", "password", "username", "clientId");
         Mockito.when(eventsRepository.findByAggregatedRootId(addAccountCommand.getClientId()))
                 .thenAnswer(invocationOnMock ->  {
                     List<DomainEvent> eventList = new ArrayList<DomainEvent>();

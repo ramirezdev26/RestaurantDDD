@@ -30,9 +30,8 @@ public class AddItemUseCase implements UseCaseForCommand<AddItemCommand> {
 
         for ( Item item : menu.getItemList() ) {
             if (item.identity().value().equals(command.getItemId())) {
-                throw new IllegalArgumentException("Id already exists in the Item List");
-            }
-        }
+                throw new IllegalArgumentException("Id already exists on the Item List");
+            }}
         menu.addToListOfItems(ItemId.of(command.getItemId()), command.getCategory(), command.getDescription(), command.getName(), command.getPrice());
 
         return menu.getUncommittedChanges().stream().map(event -> eventsRepository.saveEvent(event)).toList();

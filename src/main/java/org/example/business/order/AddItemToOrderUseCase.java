@@ -29,7 +29,7 @@ public class AddItemToOrderUseCase implements UseCaseForCommand<AddItemToOrderCo
 
         for ( OrderItem orderItem : order.getItemList() ) {
             if (orderItem.identity().value().equals(command.getItemId())) {
-                throw new IllegalArgumentException("Id already exists in the Item List");
+                throw new IllegalArgumentException("Id already exists on the Item List");
             }
         }
         order.addItemToList(OrderItemId.of(command.getItemId()), command.getCategory(), command.getItemName(), command.getPrice(), command.getQuantity());

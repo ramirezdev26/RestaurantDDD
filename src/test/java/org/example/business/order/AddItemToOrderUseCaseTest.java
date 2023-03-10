@@ -61,4 +61,31 @@ class AddItemToOrderUseCaseTest {
         Assertions.assertEquals(20000, domainEventList2.get(0).getClass().getMethod("getPrice").invoke(domainEventList2.get(0)));
     }
 
+    @Test
+    void idAlreadyExistAtList() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        // Create Order event
+        OrderCreated orderCreated = new OrderCreated("10-05-2022");
+        orderCreated.setAggregateRootId("orderId");
+
+        // Adding Item To Order List
+        ItemAddedToOrder itemAddedToOrder2 = new ItemAddedToOrder( "itemId2", "drink", "Bold Bear", 8000, 6);
+        itemAddedToOrder2.setAggregateRootId("orderId");
+
+        // Adding the Item
+        AddItemToOrderCommand addItemToOrderCommand = new AddItemToOrderCommand( "itemId2", "burger", "Hawaiian Burger", 20000, 2, "orderId");
+        Mockito.when(eventsRepository.findByAggregatedRootId(addItemToOrderCommand.getOrderId()))
+                .thenAnswer(invocationOnMock ->  {
+                    List<DomainEvent> eventList = new ArrayList<DomainEvent>();
+                    eventList.add(orderCreated);
+                    eventList.add(itemAddedToOrder2);
+                    return eventList;
+                });
+
+        IllegalArgumentException exception = assertThrows( IllegalArgumentException.class, () ->addItemToOrderUseCase.apply(addItemToOrderCommand));
+
+        Assertions.assertEquals("Id already exists on the Item List",exception.getMessage());
+
+    }
+
 }

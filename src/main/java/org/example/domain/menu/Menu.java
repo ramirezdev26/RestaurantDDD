@@ -14,8 +14,7 @@ import java.util.Set;
 
 public class Menu extends AggregateRoot<MenuId> {
 
-    protected Set<Item> itemList; // set
-
+    protected Set<Item> itemList;
     protected Promo promo;
     protected Date date;
 
