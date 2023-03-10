@@ -19,7 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,7 +50,7 @@ class AddPromoUseCaseTest {
 
 
         // Adding the Promo
-        List<String> itemIdList = new ArrayList<>();
+        Set<String> itemIdList = new HashSet<>();
         itemIdList.add("itemId");
         AddPromoCommand addPromoCommand = new AddPromoCommand( "promoId", 10, itemIdList, "menuId");
         Mockito.when(eventsRepository.findByAggregatedRootId(addPromoCommand.getMenuId()))

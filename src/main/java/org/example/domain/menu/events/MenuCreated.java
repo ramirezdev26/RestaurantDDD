@@ -4,7 +4,7 @@ import org.example.generic.DomainEvent;
 
 public class MenuCreated extends DomainEvent {
 
-    protected String date;
+    private String date;
 
     public MenuCreated(String date) {
         super("restaurant.menu.menuCreated");

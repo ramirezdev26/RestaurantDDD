@@ -28,7 +28,9 @@ public class RemovePromoUseCase implements UseCaseForCommand<RemovePromoCommand>
         List<DomainEvent> menuEvents = eventsRepository.findByAggregatedRootId(command.getMenuId());
         Menu menu = Menu.from(MenuId.of(command.getMenuId()), menuEvents);
 
+        if(menu.getPromo().identity().value().equals(command.getPromoId())) {
         menu.removePromo(command.getPromoId());
+        } else throw new IllegalArgumentException("The id provided doesn't match with the current promoId");
 
         return menu.getUncommittedChanges().stream().map(event -> eventsRepository.saveEvent(event)).toList();
     }

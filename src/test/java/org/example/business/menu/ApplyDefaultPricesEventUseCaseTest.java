@@ -16,7 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,7 +46,7 @@ class ApplyDefaultPricesEventUseCaseTest {
         ItemAdded item2Added = new ItemAdded("item2Id", "bear", "a bear with candy", "BBC", 8000);
 
         // Adding Promo to Menu
-        List<String> itemIdList = new ArrayList<>();
+        Set<String> itemIdList = new HashSet<>();
         itemIdList.add("itemId");
         PromoAdded promoAdded = new PromoAdded("promoId", 10, itemIdList);
 

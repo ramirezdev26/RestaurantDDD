@@ -2,10 +2,6 @@ package org.example.business.menu;
 
 import org.example.business.commons.EventsRepository;
 import org.example.business.commons.UseCaseForCommand;
-import org.example.domain.client.Client;
-import org.example.domain.client.commands.CreateClientCommand;
-import org.example.domain.client.values.ClientId;
-import org.example.domain.client.values.DataId;
 import org.example.domain.menu.Menu;
 import org.example.domain.menu.commands.CreateMenuCommand;
 import org.example.domain.menu.values.Date;

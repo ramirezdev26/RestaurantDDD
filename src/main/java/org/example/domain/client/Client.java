@@ -50,4 +50,15 @@ public class Client extends AggregateRoot<ClientId> {
         appendChange(new AccountAdded(id.value(), email, password, username)).apply();
     }
 
+    public Data getData() {
+        return data;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public Review getReview() {
+        return review;
+    }
 }

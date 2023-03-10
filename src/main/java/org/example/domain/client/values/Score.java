@@ -7,7 +7,9 @@ public class Score implements ValueObject<Integer> {
     private Integer score;
 
     public Score(Integer score) {
-        this.score = score;
+        if (score >= 0 && score <= 5){
+            this.score = score;
+        } else throw new IllegalArgumentException("The score must be between 0 and 5");
     }
     @Override
     public Integer value() {

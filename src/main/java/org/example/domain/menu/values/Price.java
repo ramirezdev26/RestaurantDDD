@@ -7,7 +7,9 @@ public class Price implements ValueObject<Integer> {
     private Integer price;
 
     public Price(Integer price) {
-        this.price = price;
+        if ( price > 0 ) {
+            this.price = price;
+        } else throw new IllegalArgumentException("The price must be bigger than 0");
     }
     @Override
     public Integer value() {

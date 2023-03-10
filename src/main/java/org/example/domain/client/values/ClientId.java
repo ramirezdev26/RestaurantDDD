@@ -2,6 +2,8 @@ package org.example.domain.client.values;
 
 import org.example.generic.Identity;
 
+import java.util.Objects;
+
 public class ClientId extends Identity {
 
     private ClientId(String value) {
@@ -11,7 +13,9 @@ public class ClientId extends Identity {
     public ClientId() {}
 
     public static ClientId of(String value) {
-        return new ClientId(value);
+        if (!Objects.equals(value, "")) {
+            return new ClientId(value);
+        } else throw new IllegalArgumentException("The id must not be an empty string");
     }
 
 }

@@ -10,10 +10,11 @@ import org.example.generic.DomainEvent;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Menu extends AggregateRoot<MenuId> {
 
-    protected List<Item> itemList; // set
+    protected Set<Item> itemList; // set
 
     protected Promo promo;
     protected Date date;
@@ -49,7 +50,7 @@ public class Menu extends AggregateRoot<MenuId> {
         appendChange(new ItemRemoved(itemId)).apply();
     }
 
-    public void addAPromo(PromoId id, Integer quantityOff, List<String> itemIdList){
+    public void addAPromo(PromoId id, Integer quantityOff, Set<String> itemIdList){
         Objects.requireNonNull(id);
         Objects.requireNonNull(quantityOff);
         Objects.requireNonNull(itemIdList);
@@ -61,7 +62,7 @@ public class Menu extends AggregateRoot<MenuId> {
         appendChange(new PromoRemoved(promoId)).apply();
     }
 
-    public void applyPromo(String menuId, Integer quantityOff, List<String> itemIdList){
+    public void applyPromo(String menuId, Integer quantityOff, Set<String> itemIdList){
         Objects.requireNonNull(quantityOff);
         Objects.requireNonNull(itemIdList);
         appendChange(new PromoApplied(menuId, quantityOff, itemIdList)).apply();
@@ -73,4 +74,15 @@ public class Menu extends AggregateRoot<MenuId> {
         appendChange(new DefaultPricesApplied(menuId, promoId)).apply();
     }
 
+    public Set<Item> getItemList() {
+        return itemList;
+    }
+
+    public Promo getPromo() {
+        return promo;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }

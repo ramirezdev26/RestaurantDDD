@@ -3,14 +3,15 @@ package org.example.domain.menu.events;
 import org.example.generic.DomainEvent;
 
 import java.util.List;
+import java.util.Set;
 
 public class PromoApplied extends DomainEvent {
 
     private String menuId;
     private Integer quantityOff;
-    private List<String> itemIdList;
+    private Set<String> itemIdList;
 
-    public PromoApplied(String menuId, Integer quantityOff, List<String> itemIdList) {
+    public PromoApplied(String menuId, Integer quantityOff, Set<String> itemIdList) {
         super("restaurant.menu.PromoApplied");
         this.menuId = menuId;
         this.quantityOff = quantityOff;
@@ -25,7 +26,7 @@ public class PromoApplied extends DomainEvent {
         return quantityOff;
     }
 
-    public List<String> getItemIdList() {
+    public Set<String> getItemIdList() {
         return itemIdList;
     }
 }

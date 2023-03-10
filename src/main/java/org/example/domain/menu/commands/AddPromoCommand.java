@@ -3,15 +3,16 @@ package org.example.domain.menu.commands;
 import org.example.generic.Command;
 
 import java.util.List;
+import java.util.Set;
 
 public class AddPromoCommand extends Command {
 
     private String promoId;
     private Integer quantityOff;
-    private List<String> itemIdList;
+    private Set<String> itemIdList;
     private String menuId;
 
-    public AddPromoCommand(String promoId, Integer quantityOff, List<String> itemIdList, String menuId) {
+    public AddPromoCommand(String promoId, Integer quantityOff, Set<String> itemIdList, String menuId) {
         this.promoId = promoId;
         this.quantityOff = quantityOff;
         this.itemIdList = itemIdList;
@@ -26,7 +27,7 @@ public class AddPromoCommand extends Command {
         return quantityOff;
     }
 
-    public List<String> getItemIdList() {
+    public Set<String> getItemIdList() {
         return itemIdList;
     }
 
