@@ -37,8 +37,6 @@ class CreateMenuUseCaseTest {
     void successfulScenario() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         CreateMenuCommand createMenuCommand = new CreateMenuCommand("menuId", "10-02-2023");
-        MenuCreated menuCreated = new MenuCreated("10-02-2023");
-        menuCreated.setAggregateRootId("menuId");
         Mockito.when(eventsRepository.saveEvent(ArgumentMatchers.any(MenuCreated.class)))
                 .thenAnswer(invocationOnMock -> {
                     return invocationOnMock.getArgument(0);

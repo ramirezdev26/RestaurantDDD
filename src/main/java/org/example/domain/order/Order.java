@@ -50,12 +50,12 @@ public class Order extends AggregateRoot<OrderId> {
 
     public void changeState(String state){
         Objects.requireNonNull(state);
-        appendChange(new StateChanged(state));
+        appendChange(new StateChanged(state)).apply();
     }
 
     public void associateClient(ClientId clientId, OrderId orderId){
         Objects.requireNonNull(clientId);
-        appendChange(new ClientAssociated(clientId.value(), orderId.value()));
+        appendChange(new ClientAssociated(clientId.value(), orderId.value())).apply();
     }
 
     public void addItemToList(OrderItemId itemId, String category, String itemName, Integer price, Integer quantity){
@@ -64,17 +64,17 @@ public class Order extends AggregateRoot<OrderId> {
         Objects.requireNonNull(itemName);
         Objects.requireNonNull(price);
         Objects.requireNonNull(quantity);
-        appendChange(new ItemAddedToOrder(itemId.value(), category, itemName, price, quantity));
+        appendChange(new ItemAddedToOrder(itemId.value(), category, itemName, price, quantity)).apply();
     }
 
     public void calculateTotal(OrderId orderId){
         Objects.requireNonNull(orderId);
-        appendChange(new TotalCalculated(orderId.value()));
+        appendChange(new TotalCalculated(orderId.value())).apply();
     }
 
     public void removeItemFromList(OrderItemId itemId){
         Objects.requireNonNull(itemId);
-        appendChange(new ItemRemovedFromOrder(itemId.value()));
+        appendChange(new ItemRemovedFromOrder(itemId.value())).apply();
     }
 
     public Waiter getWaiter() {

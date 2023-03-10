@@ -72,7 +72,7 @@ class ApplyDefaultPricesEventUseCaseTest {
                     return invocationOnMock.getArgument(0);
                 });
 
-        List<DomainEvent> domainEventList2 = applyDefaultPricesEventUseCase.apply(defaultPricesApplied);
+        List<DomainEvent> domainEventList2 =  applyDefaultPricesEventUseCase.apply(defaultPricesApplied);
 
         Assertions.assertEquals(1,domainEventList2.size());
         Assertions.assertEquals("menuId",domainEventList2.get(0).aggregateRootId());
